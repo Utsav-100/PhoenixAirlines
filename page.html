@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>flight admin dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+  <form action="#">
+  <div class="card">
+    <div class="card-header">
+     Add a Flight
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-condensed">
+            <tbody>
+                <tr>
+                    <td>To:<select name="From:" class="form-control" id="fromCity" placeholder="from city" >
+                        <option value="Mumbai">MUM</option>
+                        <option value="Delhi">DEL</option>
+                        <option value="Indore">IDR</option>
+                        <option value="Pune">PUNE</option>
+                        <option value="banglore">BLR</option>
+                        
+                  </select></td>
+                    <td>From :<select name="To:" class="form-control" id="toCity" placeholder="to city" oninput="validateCity()" >
+                        <option value="Mumbai">MUM</option>
+                        <option value="Delhi">DEL</option>
+                        <option value="Indore">IDR</option>
+                        <option value="Pune">PUNE</option>
+                        <option value="bangalore">BLR</option>
+                      </select></td>
+                  
+                   <td>Depart Time: <input type="time"  class="form-control" id="depTime" placeholder="departure time" /></td>
+                   <td>Arrival Time: <input type="time"  class="form-control" id="arrTime" placeholder="arrival time" /></td>
+                   <td>Buisness Seat Price: <input type="number"  class="form-control"id="Bsp" placeholder="in rupees" /></td>
+                   <td>Economy Seat Price: <input type="number"  class="form-control" id="Esp" placeholder="in rupees" /></td> 
+                   <td>Operating Day:<br> <input type="checkbox" name="week1" id="day" value="mon">Monday<br>
+
+                    <input type="checkbox" name="week2" value="tue">Tuesday<br>
+                    <input type="checkbox" name="week3" value="wed" checked>Wednes<br>
+                    <input type="checkbox" name="week4" value="thu" >Thursday<br>
+                    <input type="checkbox" name="week5" value="fri" >Friday<br>
+                    <input type="checkbox" name="week6" value="sat" >Saturday<br>
+                    <input type="checkbox" name="week7" value="sun" >Sunday<br>
+                      
+                  </td>
+                </tr> <small class="text text-muted">all fields are mandatory</small>  
+                </tbody>
+        </table>
+
+               <div class="xyz">
+     <input type="submit" class ="btn btn-success"value="AddFlight" > 
+        </div>
+    </div>
+    </form>
+
+    <button onclick="viewBooking();return false;" class="btn btn-primary" >View Flight</button>
+
+
+    <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">departure</th>
+                <th scope="col">Arrival</th>
+                <th scope="col">Economy</th>
+                <th scope="col">Buisness</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                    <tr>
+                            
+                            <td> <p id="demo1"></p></td>
+                            <td><p id="demo2"></p></td>
+                            <td> <p id="demo3"></p></td>
+                            <td> <p id="demo4"></p></td>
+                            <td> <p id="demo5"></p></td>
+                            <td> <p id="demo6"></p></td>
+                            <td> <button onclick="deleteEntry();return false;" class="btn btn-danger" >Delete</button></p></td>
+            
+                          </tr>
+                          
+              
+            </tbody>
+          </table>
+          
+          <table class="table">
+            <thead class="thead-light">
+              
+            </thead>
+            <tbody>
+              
+              
+            </tbody>
+          </table>
+
+
+   
+    
+    
+
+   
+
+
+
+
+
+
+
+    <!--div class="footer">
+             
+       <img src="images/prologo.jpg" width="70px" height="70px" />
+       <div class="foot">Phoenix Airlines</div>
+       <small class="text text-muted">lets go higher</small>
+    </div-->
+    
+    
+</div>
+<script>
+
+
+
+ 
+var fromCity = document.getElementById("fromCity");
+ var toCity = document.getElementById("toCity");
+ var depTime = document.getElementById("depTime").value;
+ var arrTime = document.getElementById("arrTime").value;
+ var Esp = document.getElementById("Esp");
+ var Bsp = document.getElementById("Bsp");
+ var day = document.getElementById("day");
+
+ 
+
+function validateCity(){
+  if(toCity.value != fromCity.value) {
+    toCity.setCustomValidity("");
+  } else {
+    toCity.setCustomValidity("Both the cities cannot be same");
+  }
+}
+
+function viewBooking() {
+    var fromCity = document.getElementById("fromCity").value;
+ var toCity = document.getElementById("toCity").value;
+ var depTime = document.getElementById("depTime").value;
+ var arrTime = document.getElementById("arrTime").value;
+ var Esp = document.getElementById("Esp").value;
+ var Bsp = document.getElementById("Bsp").value;
+  document.getElementById("demo1").innerHTML = fromCity;
+  document.getElementById("demo2").innerHTML = toCity;
+  document.getElementById("demo3").innerHTML = arrTime;
+  document.getElementById("demo4").innerHTML = depTime;
+  document.getElementById("demo5").innerHTML = Esp;
+  document.getElementById("demo6").innerHTML = Bsp;
+
+ return false;
+}
+
+function deleteEntry(){
+    var fromCity = document.getElementById("fromCity").value;
+ var toCity = document.getElementById("toCity").value;
+ var depTime = document.getElementById("depTime").value;
+ var arrTime = document.getElementById("arrTime").value;
+ var Esp = document.getElementById("Esp").value;
+ var Bsp = document.getElementById("Bsp").value;
+  document.getElementById("demo1").innerHTML = "";
+  document.getElementById("demo2").innerHTML = "";
+  document.getElementById("demo3").innerHTML = "";
+  document.getElementById("demo4").innerHTML = "";
+  document.getElementById("demo5").innerHTML ="";
+  document.getElementById("demo6").innerHTML ="";
+
+
+}
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
+
+
+
